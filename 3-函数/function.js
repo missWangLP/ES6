@@ -96,37 +96,35 @@ function function3() {
 function4();
 function function4() {
     /**
-     * 求：组合C(m, n)，m为上标，n为下标。m选n的所有项
-     * m {必传} 原始数据
-     * n {必传} 当前项还需元素的个数
-     * currentIndex 当前索引
-     * choseArr 当前项的部分元素集合（不是完整项，是生成完整项的一个中间状态）
-     * result 所有项的结果结合
+     * 大整数相加. 正常相加会溢出的两个整数, 以字符串方式相加
+     * @param num1 加数, 字符串, 例 '123456789123456789'
+     * @param num2 加数, 字符串, 例 '987654321987654321'
+     * @return 和, 例             '1111111111111111110'
      */
-    function cmn(m, n, currentIndex = 0, choseArr = [], result = []) {
-        // console.count('cmn');
-        let mLen = m.length
-            // 可选数量小于项所需元素的个数，则递归终止
-        if (currentIndex + n > mLen) {
-            return
-        }
-        for (let i = currentIndex; i < mLen; i++) {
-            // n === 1的时候，说明choseArr在添加一个元素，就能生成一个新的完整项了。
-            // debugger
-            if (n === 1) {
-                // 再增加一个元素就能生成一个完整项，再加入到结果集合中
-                result.push([...choseArr, m[i]])
-                // 继续下一个元素生成一个新的完整项
-                i + 1 < mLen && cmn(m, n, i + 1, choseArr, result)
-                break
+    let addStrings = (num1, num2) => {
+        //TODO your code goes here...
+        let result = '', isOne = false, str1 = num1.split('').reverse().join(''), str2 = num2.split('').reverse().join('');
+        let n = str1.length > str2.length ? str1.length : str2.length;
+        for(let i = 0; i < n; i++) {
+            let num11 = str1[i] ? Number(str1[i]) : 0, num22 = str2[i] ? Number(str2[i]) : 0;
+            let additionNum = num11 + num22, isOneC = false;
+            // 大于10进1
+            if(additionNum >= 10){
+                additionNum = additionNum - 10;
+                isOneC = true;
             }
-            // 执行到这，说明n > 2，choseArr还需要两个以上的元素，才能生成一个新的完整项。则递归，往choseArr添加元素
-            cmn(m, n - 1, i + 1, [...choseArr, m[i]], result);
+            
+            // 上一分位是否进1
+            if(isOne){
+                additionNum++;
+                isOne = false;
+            }
+            result += additionNum.toString();
+            isOne = isOneC ? true : false;
         }
-        return result
+        result = result.split('').reverse().join('');
+        return result;
     }
-    var arr1 = ['a', 'b', 'c', 'd']
-    console.time('cmn');
-    console.dir(cmn(arr1, 2));
-    console.timeEnd('cmn');
+
+    console.log(addStrings('123456789123456789', '98765432198765432133333'))
 }
