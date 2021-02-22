@@ -93,38 +93,3 @@ function function3() {
     let bookData = pick(book, 'title', 'year');
     console.log(bookData);
 }
-function4();
-function function4() {
-    /**
-     * 大整数相加. 正常相加会溢出的两个整数, 以字符串方式相加
-     * @param num1 加数, 字符串, 例 '123456789123456789'
-     * @param num2 加数, 字符串, 例 '987654321987654321'
-     * @return 和, 例             '1111111111111111110'
-     */
-    let addStrings = (num1, num2) => {
-        //TODO your code goes here...
-        let result = '', isOne = false, str1 = num1.split('').reverse().join(''), str2 = num2.split('').reverse().join('');
-        let n = str1.length > str2.length ? str1.length : str2.length;
-        for(let i = 0; i < n; i++) {
-            let num11 = str1[i] ? Number(str1[i]) : 0, num22 = str2[i] ? Number(str2[i]) : 0;
-            let additionNum = num11 + num22, isOneC = false;
-            // 大于10进1
-            if(additionNum >= 10){
-                additionNum = additionNum - 10;
-                isOneC = true;
-            }
-            
-            // 上一分位是否进1
-            if(isOne){
-                additionNum++;
-                isOne = false;
-            }
-            result += additionNum.toString();
-            isOne = isOneC ? true : false;
-        }
-        result = result.split('').reverse().join('');
-        return result;
-    }
-
-    console.log(addStrings('123456789123456789', '98765432198765432133333'))
-}
