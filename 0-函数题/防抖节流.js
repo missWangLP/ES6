@@ -55,4 +55,15 @@ let div = document.getElementById('div'),num = 0;
 function count() {
   div.innerHTML = num++;
 }
-div.onmousemove = throttle(count, 800, false);
+div.onmousemove = de(count);
+
+function de(fn, time = 100){
+  let timeout = null;
+  return function() {
+    let me = this, args = arguments;
+    if(timeout) clearTimeout(timeout);
+    timeout = setTimeout(()=>{
+      fn.apply(me, args);
+    }, time)
+  }
+}

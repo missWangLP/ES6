@@ -35,3 +35,18 @@ let arr1 = ['a', 'b', 'c', 'd']
 console.time('cmn');
 console.dir(cmn(arr1, 2));
 console.timeEnd('cmn');
+
+// 列汉诺塔函数
+var hanoi = function(disc, src, aux, dst){
+  // 基数小于0就终止
+  if (disc > 0){
+    hanoi(disc - 1, src, dst, aux);
+    console.log('Move disc' + disc + ' from ' + src + ' to ' + dst);
+    hanoi(disc - 1, aux, src, dst);
+  }
+}
+hanoi(3, 'Src', 'Aux', 'Dst');
+
+// 1.把 n-1 个盘子由 src 移到 dst
+// 2.把第 n 个盘子由 src 移到 aux
+// 3.把 n-1 个盘子由 dst 移到 aux
